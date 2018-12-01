@@ -16,38 +16,51 @@
       <button class="num" id="butt1" value="1">1</button>
       <button class="num" id="butt2" value="2">2</button>
       <button class="num" id="butt3" value="3">3</button>
-      <button class="num" id="buttplus" value="plus">+</button>
+      <button class="operator" id="buttplus" value="plus">+</button>
     </div> 
 
     <div>
         <button class="num" id="butt4" value="4">4</button>
         <button class="num" id="butt5" value="5">5</button>
         <button class="num" id="butt6" value="6">6</button>
-        <button class="num" id="buttminus" value="minus">-</button>
+        <button class="operator" id="buttminus" value="minus">-</button>
     </div>
 
     <div>
         <button class="num" id="butt7" value="7">7</button>
         <button class="num" id="butt8" value="8">8</button>
         <button class="num" id="butt9" value="9">9</button>
-        <button class="num" id="butttimes" value="times">x</button>  
+        <button class="operator" id="butttimes" value="times">x</button>  
     </div>
 
     <div>
        <button class="num" id="butt0" value="0">0</button>
-       <button class="num" id="buttdiv" value="divide">/</button>
-       <button class="num" id="buttInf" value="power">~</button>
-       <button class="num equal" id="buttEquals" value="equals">=</button>
+       <button class="operator" id="buttdiv" value="divide">/</button>
+       <button class="operator" id="buttInf" value="power">~</button>
+       <button class="equal" id="buttEquals" value="equals">=</button>
     </div>
 
-    <button id="clear" class="clear" value="clear">Clear</button>
+    <button id="clear1" class="clear" value="clear">Clear</button>
 
 </div>
 
-    <div class="op" id="num1"></div>
+    <!-- <div class="op" id="num1"></div>
     <div class="op" id="num2"></div>
     <div class="op" id="opp"></div>
-    <div class="op" id="result"></div>
+    <div class="op" id="result"></div> -->
+
+    <div>
+        <div>
+          <h3 class="card-header">Result</h3>
+          <div class="card-body">
+            <h1 id="first-number"></h1>
+            <h1 id="operator"></h1>
+            <h1 id="second-number"></h1>
+            <hr>
+            <h1 id="result"></h1>
+          </div>
+        </div>
+      </div>
 
   
 
@@ -58,22 +71,21 @@
 
      var num1 = 0;
      var num2 = 0;
-     var opp = 0;
+     var opp = "";
      var result = 0;
+     var isOperatorChosen = false;
+     var isCalculated = false;
 
-      var isOperatorChosen = false;
-      var isCalculated = false;
+     function Start() {
+        num1 = "";
+        num2 = "";
+        opp = "";
+        isOperatorChosen = false;
+        isCalculated = false;
 
-     function Start () {
-        var num1 = "";
-        var num2 = "";
-        var opp = "";
-
-        var isOperatorChosen = false;
-        var isCalculated = false;
-
-     $("#num1, #num2, #opp, #result").empty();
+     $("#first-number, #second-number, #opp, #result").empty();
       }
+
 
       $(".num").on("click", function() {
 
@@ -85,49 +97,34 @@
         // If operator is chosen, we should be writing the secondNumber, otherwise, the firstNumber
         if (isOperatorChosen) {
           num2 += $(this).val();
-          $("#num2").text(num2);
+          $("#second-number").text(num2);
 
         }
         else {
           num1 += $(this).val();
-          $("#num1").text(num1);
+          $("#first-number").text(num1);
         }
 
       });
-      $(".opp").on("click", function() {
-
-        // Check if a first number has already been selected
-        // Or we've already run a calculation, if so we just exit.
+      $(".operator").on("click", function() {
         if (!num1 || isCalculated) {
           return false;
         }
 
-        // Set isOperatorChosen to true so we start writing to secondNumber
         isOperatorChosen = true;
-
-        // Store off the operator
         opp = $(this).val();
-
-        // Set the HTML of the #operator to the text of what was clicked
-        $("#opp").text($(this).text());
+        $("#operator").text($(this).text());
 
       });
       $(".equal").on("click", function() {
-
-        // If we already clicked equal, don't do the calculation again
         if (isCalculated) {
           return false;
         }
-
-        // Set isCalculated to true so that we don't get in a weird UI state by clicking buttons again
-        isCalculated = true;
-
-        // Use parseInt to convert our string representation of numbers into actual integers
+    
+      isCalculated = true;
         num1 = parseInt(num1);
         num2 = parseInt(num2);
 
-        // Based on the operator that was chosen.
-        // Then run the operation and set the HTML of the result of that operation
         if (opp === "plus") {
             result = num1 + num2;
         }
@@ -152,94 +149,16 @@
 
       });
       $(".clear").on("click", function() {
-
-        // Call initializeCalculater so we can reset the state of our app
         Start();
-
       });
-
-      // Call initializeCalculater so we can set the state of our app
       Start();
     });
 
 
-       </script>
+   </script>
     
 </body>
 </html>
-
-<script>
-
-//         $("#num1, #num2, #opp, #result").empty();
-        
-//      } 
-        
-//         $(".num").on("click", function(){
-        
-//         if (oppIsCal){
-//             return false;
-//         }
-
-//         if (oppPicked) {
-//             num2 += $(this).val();
-//             $("#num2").html(num2);
-//         }
-
-//         else {
-//             num1 += $(this).val();
-//             $("#num1").html(num1);
-//         }
-
-//     });
-
-//     //  $("#opp").html($(this).html());
-
-//     $(".op").on("click", function() {
-
-//     if (!num1 || oppPicked) {
-//         return false;
-//     }
-
-//     oppPicked = true;
-
-//     opp = $(this).val();
-
-// $(".op").text($(this).text());
-
-    
-//     });
-
-//     $(".equal".on("click", function() {
-
-//    if () {
-
-//    }
-
-//     }
-
-
-//   }
-
-// });
-
-
-    //   function calSet() {
-    //       num1 = "";
-    //       num2 = "";
-    //       opp = "";
-    //       result = "";
-
-    //       oppPicked = false;
-    //       oppIsCal = false;
-    //    }
-   
-
-
-   </script> 
-
-      
-
-    
 
 
 
