@@ -4,56 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <title>Google Calculator</title>
 </head>
 <body>
 
 <div id="contain">
      
     <div>
-      <button id="butt1">1</button>
-      <button id="butt2">2</button>
-      <button id="butt3">3</button>
-      <button id="buttplus">+</button>
+      <button class="num" id="butt1" value="1">1</button>
+      <button class="num" id="butt2" value="2">2</button>
+      <button class="num" id="butt3" value="3">3</button>
+      <button class="num" id="buttplus" value="plus">+</button>
     </div> 
 
     <div>
-        <button id="butt4">4</button>
-        <button id="butt5">5</button>
-        <button id="butt6">6</button>
-        <button id="buttminus">-</button>
+        <button class="num" id="butt4" value="4">4</button>
+        <button class="num" id="butt5" value="5">5</button>
+        <button class="num" id="butt6" value="6">6</button>
+        <button class="num" id="buttminus" value="minus">-</button>
     </div>
 
     <div>
-        <button id="butt7">7</button>
-        <button id="butt8">8</button>
-        <button id="butt9">9</button>
-        <button id="butttimes">x</button>  
+        <button class="num" id="butt7" value="7">7</button>
+        <button class="num" id="butt8" value="8">8</button>
+        <button class="num" id="butt9" value="9">9</button>
+        <button class="num" id="butttimes" value="times">x</button>  
     </div>
 
     <div>
-       
-        <button id="butt0">0</button>
-       <button id="buttdiv">/</button>
-       <button id="buttInf">~</button>
-        <button id="buttEquals">=</button>
-        </div>
-
-    
-   
-
-                     
-                 
-
+       <button class="num" id="butt0" value="0">0</button>
+       <button class="num" id="buttdiv" value="divide">/</button>
+       <button class="num" id="buttInf" value="power">~</button>
+       <button class="num equal" id="buttEquals" value="equals">=</button>
     </div>
 
-    <!-- <div class="clean" id="fun"></div> -->
-    <div id="num1"></div>
-    <div id="num2"></div>
-    <div id="opp"></div>
-    <div id="result"></div>
+    <button id="clear" class="clear" value="clear">Clear</button>
 
-    <!-- <button id="butt">Button</button> -->
+</div>
+
+    <div class="op" id="num1"></div>
+    <div class="op" id="num2"></div>
+    <div class="op" id="opp"></div>
+    <div class="op" id="result"></div>
+
+  
 
     <script>
      
@@ -63,29 +59,183 @@
      var num1 = 0;
      var num2 = 0;
      var opp = 0;
-     var resutl = 0;
+     var result = 0;
 
-     var oppPicked = false;
-     var oppIsCalulated = false;
+      var isOperatorChosen = false;
+      var isCalculated = false;
 
      function Start () {
         var num1 = "";
         var num2 = "";
         var opp = "";
-        var resutl = "";
 
-        var oppPicked = false;
-        var oppIsCalulated = false;
+        var isOperatorChosen = false;
+        var isCalculated = false;
 
-        $("")
+     $("#num1, #num2, #opp, #result").empty();
+      }
 
+      $(".num").on("click", function() {
 
-     }
+        // Check if we've already run a calculation, if so... we'll just.
+        if (isCalculated) {
+          return false;
+        }
+
+        // If operator is chosen, we should be writing the secondNumber, otherwise, the firstNumber
+        if (isOperatorChosen) {
+          num2 += $(this).val();
+          $("#num2").text(num2);
+
+        }
+        else {
+          num1 += $(this).val();
+          $("#num1").text(num1);
+        }
+
+      });
+      $(".opp").on("click", function() {
+
+        // Check if a first number has already been selected
+        // Or we've already run a calculation, if so we just exit.
+        if (!num1 || isCalculated) {
+          return false;
+        }
+
+        // Set isOperatorChosen to true so we start writing to secondNumber
+        isOperatorChosen = true;
+
+        // Store off the operator
+        opp = $(this).val();
+
+        // Set the HTML of the #operator to the text of what was clicked
+        $("#opp").text($(this).text());
+
+      });
+      $(".equal").on("click", function() {
+
+        // If we already clicked equal, don't do the calculation again
+        if (isCalculated) {
+          return false;
+        }
+
+        // Set isCalculated to true so that we don't get in a weird UI state by clicking buttons again
+        isCalculated = true;
+
+        // Use parseInt to convert our string representation of numbers into actual integers
+        num1 = parseInt(num1);
+        num2 = parseInt(num2);
+
+        // Based on the operator that was chosen.
+        // Then run the operation and set the HTML of the result of that operation
+        if (opp === "plus") {
+            result = num1 + num2;
+        }
+
+        else if (opp === "minus") {
+            result = num1 - num2;
+        }
+
+        else if (opp === "times") {
+            result = num1 * num2;
+        }
+
+        else if (opp === "divide") {
+          result = num1 / num2;
+        }
+
+        else if (opp === "power") {
+          result = Math.pow(num1, num2);
+        }
+
+        $("#result").text(result);
+
+      });
+      $(".clear").on("click", function() {
+
+        // Call initializeCalculater so we can reset the state of our app
+        Start();
 
       });
 
+      // Call initializeCalculater so we can set the state of our app
+      Start();
+    });
+
+
+       </script>
+    
+</body>
+</html>
+
+<script>
+
+//         $("#num1, #num2, #opp, #result").empty();
+        
+//      } 
+        
+//         $(".num").on("click", function(){
+        
+//         if (oppIsCal){
+//             return false;
+//         }
+
+//         if (oppPicked) {
+//             num2 += $(this).val();
+//             $("#num2").html(num2);
+//         }
+
+//         else {
+//             num1 += $(this).val();
+//             $("#num1").html(num1);
+//         }
+
+//     });
+
+//     //  $("#opp").html($(this).html());
+
+//     $(".op").on("click", function() {
+
+//     if (!num1 || oppPicked) {
+//         return false;
+//     }
+
+//     oppPicked = true;
+
+//     opp = $(this).val();
+
+// $(".op").text($(this).text());
 
     
+//     });
+
+//     $(".equal".on("click", function() {
+
+//    if () {
+
+//    }
+
+//     }
+
+
+//   }
+
+// });
+
+
+    //   function calSet() {
+    //       num1 = "";
+    //       num2 = "";
+    //       opp = "";
+    //       result = "";
+
+    //       oppPicked = false;
+    //       oppIsCal = false;
+    //    }
+   
+
+
+   </script> 
 
       
 
@@ -94,7 +244,4 @@
 
 
 
-    </script>
-    
-</body>
-</html>
+ 
