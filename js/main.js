@@ -28,7 +28,7 @@
         // If operator is chosen, we should be writing the secondNumber, otherwise, the firstNumber
         if (isOperatorChosen) {
           num2 += $(this).val();
-          $("#second-number").text(num2);
+          $("#second-number").html(num2);
 
         }
         else {
@@ -66,6 +66,7 @@
 
         else if (opp === "times") {
             result = num1 * num2;
+            
         }
 
         else if (opp === "divide") {
