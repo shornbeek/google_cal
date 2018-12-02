@@ -1,0 +1,34 @@
+.contain {
+    display: inline-block;
+}
+
+button {
+    width: 200px;
+    height: 125px;
+}
+
+.buttwo {
+    font-size: 43px;
+    margin: 2px;
+}
+
+
+.num {
+    background-color: lightgray;
+}
+
+.operator {
+    background-color: darkgray;
+}
+
+.equal {
+    background-color: lightskyblue;
+}
+
+
+
+.boxing {
+
+    font-family: 'Montserrat', sans-serif;
+    font-size: 43px;
+}
