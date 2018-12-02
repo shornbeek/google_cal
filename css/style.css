@@ -1,16 +1,15 @@
-.contain {
-    display: inline-block;
-}
+
 
 button {
-    width: 200px;
-    height: 125px;
-    margin: 0 auto;
+    width: 100px;
+    height: 60px;
+    
 }
 
 .buttwo {
-    font-size: 43px;
+    font-size: 22px;
     margin: 2px;
+    display: inline-block;
 }
 
 h1 {
@@ -43,4 +42,16 @@ h1 {
     height: 300px;
     border: 1px solid rgba(0,0,0,.125);
     
+}
+
+.giffy-wrapper {
+    text-align: center;
+    position: relative;
+    max-width: 700px;
+    margin: 0 auto 22px auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background-color: #fff;
+    padding: 5px;
+    padding-bottom: 55px;
+
 }
